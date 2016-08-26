@@ -1,0 +1,6 @@
+pdfdocument
+pivottablejs
+psutil
+pytest
+unidecode
+cs103
