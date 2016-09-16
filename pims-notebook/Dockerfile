@@ -66,8 +66,6 @@ RUN echo "push!(Base.DL_LOAD_PATH, \"$CONDA_DIR/lib\"); push!(Base.LOAD_PATH, \"
 RUN sed -i 's?/home/jovyan/.julia?/usr/share/julia/site?' /opt/conda/share/jupyter/kernels/julia-0.4/kernel.json 
 RUN chmod -R go+r /usr/share/julia/site
 
-RUN conda update --all --yes && \
-  conda clean -tipsy
 RUN apt-get update && apt-get -y upgrade && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN userdel jovyan
