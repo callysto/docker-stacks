@@ -37,6 +37,9 @@ RUN conda install --yes pyqt \
   nltk && \
   conda clean -tipsy
 
+RUN conda install --yes -c damianavila82 rise && \
+  conda clean -tipsy
+
 ADD requirements.txt /tmp/requirements.txt
 # And the stuff that isn't in anaconda
 RUN pip install -r /tmp/requirements.txt
