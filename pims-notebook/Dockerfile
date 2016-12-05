@@ -1,7 +1,7 @@
 # Build as jupyterhub/singleuser
 # Run with the DockerSpawner in JupyterHub
 
-FROM jupyter/datascience-notebook
+FROM jupyter/julia-notebook
 
 MAINTAINER Ian Allison <iana@pims.math.ca>
 
@@ -14,6 +14,7 @@ RUN wget -q https://raw.githubusercontent.com/jupyterhub/jupyterhub/0.6.1/script
 
 RUN apt-get update && apt-get install -y \
   build-essential \
+  fonts-dejavu \
   python-dev \
   gfortran \
   libzmq5 \
@@ -23,6 +24,30 @@ RUN apt-get update && apt-get install -y \
   pyqt4-dev-tools \
   gnupg procps && \
   apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# R
+# R packages including IRKernel which gets installed globally.
+# Pin r-base to a specific build number for https://github.com/jupyter/docker-stacks/issues/210#issuecomment-246081809
+RUN conda config --add channels r && \
+    conda install --quiet --yes \
+    'rpy2=2.8*' \
+    'r-base=3.3.1 1' \
+    'r-irkernel=0.7*' \
+    'r-plyr=1.8*' \
+    'r-devtools=1.11*' \
+    'r-dplyr=0.4*' \
+    'r-ggplot2=2.1*' \
+    'r-tidyr=0.5*' \
+    'r-shiny=0.13*' \
+    'r-rmarkdown=0.9*' \
+    'r-forecast=7.1*' \
+    'r-stringr=1.0*' \
+    'r-rsqlite=1.0*' \
+    'r-reshape2=1.4*' \
+    'r-nycflights13=0.2*' \
+    'r-caret=6.0*' \
+    'r-rcurl=1.95*' \
+    'r-randomforest=4.6*' && conda clean -tipsy
 
 RUN echo "deb http://www.deb-multimedia.org stretch main non-free" >> /etc/apt/sources.list
 RUN apt-key adv --keyserver pgp.mit.edu --recv-keys 65558117
@@ -64,12 +89,6 @@ USER root
 # Add essential packages
 RUN apt-get update && apt-get -y install libhdf5-10 hdf5-tools && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
-RUN JULIA_PKGDIR="/usr/share/julia/site" julia -e 'Pkg.init(); Pkg.add("IJulia"); Pkg.add("Gadfly"); Pkg.add("RDatasets"); Pkg.add("HDF5")'
-RUN echo "push!(Base.DL_LOAD_PATH, \"$CONDA_DIR/lib\"); push!(Base.LOAD_PATH, \"/usr/share/julia/site/v0.4\"); push!(Base.LOAD_CACHE_PATH, \"/usr/share/julia/site/lib/v0.4\")" > /etc/julia/juliarc.jl
-RUN sed -i 's?/home/jovyan/.julia?/usr/share/julia/site?' /opt/conda/share/jupyter/kernels/julia-0.4/kernel.json 
-RUN chmod -R go+r /usr/share/julia/site
-
-RUN apt-get update && apt-get -y upgrade && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN userdel jovyan
 ENV SHELL /bin/bash
