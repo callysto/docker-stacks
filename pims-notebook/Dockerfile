@@ -19,6 +19,7 @@ RUN apt-get update && apt-get install -y \
   gfortran \
   libzmq5 \
   libzmq5-dev \
+  libssl-dev \
   less openssh-client zip \
   man git libxrender1 \
   pyqt4-dev-tools \
@@ -83,11 +84,13 @@ RUN bash -c "$CONDA_ACTIVATE_PY2 && pip install git+https://github.com/simpeg/si
 
 ADD Rprofile.site /opt/conda/lib/R/etc/Rprofile.site
 
-
 USER root
+
+ADD pip.conf /etc/pip.conf
+
 # Show Julia where conda libraries are
 # Add essential packages
-RUN apt-get update && apt-get -y install libhdf5-10 hdf5-tools && apt-get clean && \
+RUN apt-get update && apt-get -y install libhdf5-100 hdf5-tools && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 RUN userdel jovyan
