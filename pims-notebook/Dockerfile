@@ -99,3 +99,8 @@ ENV SHELL /bin/bash
 ADD systemuser.sh /srv/singleuser/systemuser.sh
 
 CMD ["sh", "/srv/singleuser/systemuser.sh"]
+
+RUN mkdir -p /opt/notebook/local_templates
+ADD notebook.html /opt/notebook/local_templates/notebook.html
+RUN mkdir -p /etc/jupyter
+ADD jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_config.py
