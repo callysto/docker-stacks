@@ -3,4 +3,5 @@ pivottablejs
 psutil
 pytest
 unidecode
+# Update Oct 2nd 2017
 cs103
