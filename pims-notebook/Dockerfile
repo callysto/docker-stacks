@@ -77,21 +77,11 @@ ADD requirements.txt /tmp/requirements.txt
 # And the stuff that isn't in anaconda
 RUN pip install -r /tmp/requirements.txt
 
-# Python 2 stuff
-ENV CONDA_PY2ENV "python2"
-ENV CONDA_ACTIVATE_PY2 "source activate $CONDA_PY2ENV"
-RUN conda install -y -n $CONDA_PY2ENV pyqt \
-  boto3 botocore \
-  beautifulsoup4 \
-  html5lib \
-  mpld3 \
-  nltk && conda clean -tipsy
-
-RUN bash -c "$CONDA_ACTIVATE_PY2 && pip install git+https://github.com/simpeg/simpeg.git"
-
 ADD Rprofile.site /opt/conda/lib/R/etc/Rprofile.site
 
 RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix
+
+RUN jupyter labextension install @jupyterlab/google-drive
 
 USER root
 
