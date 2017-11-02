@@ -9,7 +9,7 @@ EXPOSE 8888
 
 USER root
 # fetch juptyerhub-singleuser entrypoint
-RUN wget -q https://raw.githubusercontent.com/jupyterhub/jupyterhub/0.7.2/scripts/jupyterhub-singleuser -O /usr/local/bin/jupyterhub-singleuser && \
+RUN wget -q https://raw.githubusercontent.com/jupyterhub/jupyterhub/0.8.0/scripts/jupyterhub-singleuser -O /usr/local/bin/jupyterhub-singleuser && \
     chmod 755 /usr/local/bin/jupyterhub-singleuser
 
 RUN apt-get update && apt-get install -y \
@@ -81,7 +81,9 @@ ADD Rprofile.site /opt/conda/lib/R/etc/Rprofile.site
 
 RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix
 
+# Install but don't enable
 RUN jupyter labextension install @jupyterlab/google-drive
+RUN jupyter labextension disable @jupyterlab/google-drive
 
 USER root
 
