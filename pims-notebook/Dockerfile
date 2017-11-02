@@ -31,25 +31,26 @@ RUN apt-get update && apt-get install -y \
 # Pin r-base to a specific build number for https://github.com/jupyter/docker-stacks/issues/210#issuecomment-246081809
 RUN conda config --add channels r && \
     conda install --quiet --yes \
-    'rpy2=2.8*' \
-    'r-base=3.3.1 1' \
-    'r-irkernel=0.7*' \
+    'r-base=3.4.2' \
+    'r-essentials=1.7*' \
+    'r-irkernel=0.8*' \
     'r-plyr=1.8*' \
-    'r-devtools=1.11*' \
-    'r-dplyr=0.4*' \
-    'r-ggplot2=2.1*' \
-    'r-tidyr=0.5*' \
-    'r-shiny=0.13*' \
-    'r-rmarkdown=0.9*' \
-    'r-forecast=7.1*' \
-    'r-stringr=1.0*' \
-    'r-rsqlite=1.0*' \
+    'r-devtools=1.13*' \
+    'r-dplyr=0.7*' \
+    'r-ggplot2=2.2*' \
+    'r-tidyr=0.7*' \
+    'r-shiny=1.0*' \
+    'r-rmarkdown=1.6*' \
+    'r-forecast=8.2*' \
+    'r-stringr=1.2*' \
+    'r-stringi=1.1*' \
+    'r-rsqlite=2.0*' \
     'r-reshape2=1.4*' \
     'r-nycflights13=0.2*' \
     'r-caret=6.0*' \
     'r-rcurl=1.95*' \
     'r-crayon=1.3*' \
-    'r-tidyverse' \
+    'r-tidyverse=1.1*' \
     'r-randomforest=4.6*' && conda clean -tipsy
 
 RUN echo "deb http://www.deb-multimedia.org stretch main non-free" >> /etc/apt/sources.list
@@ -58,16 +59,18 @@ RUN apt-get update && apt-get install -y ffmpeg && apt-get clean && rm -rf /var/
 
 USER jovyan
 
-RUN conda install --yes pyqt \
+RUN conda install --yes atlas \
+  boto \
   beautifulsoup4 \
-  html5lib \
-  mpld3 \
   gmaps \
-  tensorflow \
   keras \
-  atlas \
+  html5lib \
   lapack \
-  nltk && \
+  markdown \
+  mpld3 \
+  nltk \
+  pyqt \
+  tensorflow && \
   conda clean -tipsy
 
 RUN conda install --yes -c damianavila82 rise && \
