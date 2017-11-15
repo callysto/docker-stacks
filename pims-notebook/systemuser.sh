@@ -13,7 +13,7 @@ then
     notebook_arg="--notebook-dir=${NOTEBOOK_DIR}"
 fi
 
-sudo -E PATH="${CONDA_DIR}/bin:$PATH" -u $USER jupyterhub-singleuser \
+sudo -E PATH="${CONDA_DIR}/bin:$PATH" -E LD_LIBRARY_PATH="${CONDA_DIR}/lib" -u $USER jupyterhub-singleuser \
   ${notebook_arg} \
   $@
 
