@@ -131,7 +131,7 @@ USER $NB_USER
 
 RUN echo 'push!(Base.LOAD_CACHE_PATH, "/opt/julia-0.6/share/julia/site/lib/v0.6")' >> /opt/julia-0.6/etc/julia/juliarc.jl
 RUN echo "push!(Libdl.DL_LOAD_PATH, \"$CONDA_DIR/lib\")" >> /opt/julia-0.6/etc/julia/juliarc.jl
-
+RUN mkdir -p /home/$NB_USER/.config/matplotlib && echo "backend: Agg" >> /home/$NB_USER/.config/matplotlib/matplotlibrc
 ADD package-installs.jl /tmp/package-installs.jl
 RUN JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia /tmp/package-installs.jl && \
     JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "Base.compilecache(\"BinDeps\")" && \
@@ -164,7 +164,6 @@ RUN JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia /tmp/package-installs.jl 
     JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "Base.compilecache(\"Patchwork\")" && \
     JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "Base.compilecache(\"PDMats\")" && \
     JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "Base.compilecache(\"PGFPlots\")" && \
-    JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "Base.compilecache(\"Plots\")" && \
     JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "Base.compilecache(\"PyCall\")" && \
     JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "Base.compilecache(\"PyPlot\")" && \
     JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "Base.compilecache(\"Quandl\")" && \
@@ -185,7 +184,7 @@ RUN JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia /tmp/package-installs.jl 
     JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "Base.compilecache(\"ZMQ\")" && \
     JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "Base.compilecache(\"ZMQ\")" && \
     JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "import Plots" && \
-    JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "import PyPlot" && \
+    LD_LIBRARY_PATH=/opt/conda/lib JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "import PyPlot" && \
     JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "import IJulia" && \
     JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "import DataFrames" && \
     JULIA_PKGDIR=/opt/julia-0.6/share/julia/site julia -e "import Optim" && \
