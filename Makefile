@@ -22,7 +22,7 @@ ALL_STACKS:=base-notebook \
 	all-spark-notebook \
 	julia-notebook \
 	pims-minimal \
-	pims-notebook
+	pims-r
 endif
 
 ALL_IMAGES:=$(ALL_STACKS)
