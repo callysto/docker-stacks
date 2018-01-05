@@ -1,6 +1,6 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
-FROM jupyter/scipy-notebook
+FROM jupyter/pims-notebook
 
 MAINTAINER Ian Allison <iana@pims.math.ca>
 
@@ -102,12 +102,12 @@ RUN mkdir flint2 && cd flint2 && git clone https://github.com/ianabc/flint2 && \
     rm -rf flint2
 
 # Julia 
-RUN mkdir -p /opt/julia-0.6.1 && \
-  curl -s -L https://julialang-s3.julialang.org/bin/linux/x64/0.6/julia-0.6.1-linux-x86_64.tar.gz | tar -C /opt/julia-0.6.1 -x -z --strip-components=1 -f -
-RUN ln -fs /opt/julia-0.6.1 /opt/julia-0.6
-RUN rm -f /opt/julia && ln -fs /opt/julia-0.6.1 /opt/julia
+RUN mkdir -p /opt/julia-0.6.2 && \
+  curl -s -L https://julialang-s3.julialang.org/bin/linux/x64/0.6/julia-0.6.2-linux-x86_64.tar.gz | tar -C /opt/julia-0.6.2 -x -z --strip-components=1 -f -
+RUN ln -fs /opt/julia-0.6.2 /opt/julia-0.6
+RUN rm -f /opt/julia && ln -fs /opt/julia-0.6.2 /opt/julia
 RUN ln -fs /opt/julia/bin/julia /usr/bin/julia
-RUN chown -R 1000:100 /opt/julia-0.6.1
+RUN chown -R 1000:100 /opt/julia-0.6.2
 
 # Cairo Build deps
 RUN apt-get update && \

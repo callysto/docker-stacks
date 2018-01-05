@@ -1,7 +1,7 @@
 # Build as jupyterhub/singleuser
 # Run with the DockerSpawner in JupyterHub
 
-FROM jupyter/julia-notebook
+FROM jupyter/scipy-notebook
 
 MAINTAINER Ian Allison <iana@pims.math.ca>
 
@@ -84,9 +84,9 @@ ADD Rprofile.site /opt/conda/lib/R/etc/Rprofile.site
 
 RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix
 
-# Install but don't enable
-RUN jupyter labextension install @jupyterlab/google-drive
-RUN jupyter labextension disable @jupyterlab/google-drive
+# Install but don't enable (not available till jupyterlab@0.31)
+# RUN jupyter labextension install @jupyterlab/google-drive
+# RUN jupyter labextension disable @jupyterlab/google-drive
 
 USER root
 
@@ -97,7 +97,6 @@ ADD pip.conf /etc/pip.conf
 RUN apt-get update && apt-get -y install libhdf5-100 hdf5-tools && apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN userdel jovyan
 ENV SHELL /bin/bash
 
 ADD systemuser.sh /srv/singleuser/systemuser.sh
