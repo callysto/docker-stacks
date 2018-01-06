@@ -10,6 +10,7 @@ USER $NB_USER
 # R
 RUN conda config --add channels r && \
     conda install --quiet --yes \
+    'gxx_linux-64' \
     'r-base=3.4.2' \
     'r-essentials=1.7*' \
     'r-irkernel=0.8*' \
