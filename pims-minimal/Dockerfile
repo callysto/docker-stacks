@@ -25,6 +25,9 @@ RUN pip install -r /tmp/requirements.txt
 
 RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix
 
+RUN pip install git+https://github.com/data-8/nbgitpuller \
+ && jupyter serverextension enable --sys-prefix nbgitpuller
+
 USER root
 # fetch juptyerhub-singleuser entrypoint
 RUN wget -q https://raw.githubusercontent.com/jupyterhub/jupyterhub/0.8.1/scripts/jupyterhub-singleuser -O /usr/local/bin/jupyterhub-singleuser && \
