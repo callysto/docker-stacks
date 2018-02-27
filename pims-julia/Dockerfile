@@ -1,4 +1,4 @@
-FROM jupyter/pims-minimal
+FROM jupyter/pims-r
 
 MAINTAINER Ian Allison <iana@pims.math.ca>
 
