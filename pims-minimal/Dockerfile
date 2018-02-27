@@ -2,7 +2,8 @@ FROM jupyter/scipy-notebook
 
 MAINTAINER Ian Allison <iana@pims.math.ca>
 
-RUN conda install --yes atlas \
+RUN conda install --yes astropy \
+  atlas \
   boto \
   beautifulsoup4 \
   gmaps \
@@ -13,7 +14,8 @@ RUN conda install --yes atlas \
   mpld3 \
   nltk \
   pyqt \
-  tensorflow && \
+  tensorflow \
+  lxml && \
   conda clean -tipsy
 
 RUN conda install --yes -c damianavila82 rise && \
