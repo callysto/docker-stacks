@@ -27,6 +27,7 @@ RUN conda config --add channels r && \
     'r-rsqlite=2.0*' \
     'r-reshape2=1.4*' \
     'r-nycflights13=0.2*' \
+    'r-car=2.1*' \
     'r-caret=6.0*' \
     'r-rcurl=1.95*' \
     'r-crayon=1.3*' \
