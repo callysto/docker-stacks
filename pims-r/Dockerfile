@@ -11,14 +11,18 @@ USER $NB_USER
 RUN conda config --add channels r && \
     conda install --quiet --yes \
     'gxx_linux-64' \
+    'gmp' \
+    'mpfr' \
     'r-base=3.4.2' \
     'r-essentials=1.7*' \
+    'r-gmp' \
     'r-irkernel=0.8*' \
     'r-plyr=1.8*' \
     'r-devtools=1.13*' \
     'r-dplyr=0.7*' \
     'r-ggplot2=2.2*' \
     'r-tidyr=0.7*' \
+    'r-lsmeans' \
     'r-shiny=1.0*' \
     'r-rmarkdown=1.6*' \
     'r-forecast=8.2*' \

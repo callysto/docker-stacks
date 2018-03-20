@@ -6,11 +6,14 @@ RUN conda install --yes astropy \
   atlas \
   boto \
   beautifulsoup4 \
+  gfortran_linux-64 \
+  gmp \
   gmaps \
   keras \
   html5lib \
   lapack \
   markdown \
+  mpfr \
   mpld3 \
   nltk \
   pyqt \
@@ -26,6 +29,7 @@ COPY requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt
 
 RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix
+RUN jupyter lab build
 
 RUN pip install git+https://github.com/data-8/nbgitpuller \
  && jupyter serverextension enable --sys-prefix nbgitpuller
@@ -40,9 +44,10 @@ RUN apt-get update && apt-get install -y \
   curl \
   fonts-dejavu \
   python-dev \
-  gfortran \
   hdf5-tools \
   libhdf5-100 \
+  libgmp-dev \
+  libmpfr-dev \
   libzmq5 \
   libzmq5-dev \
   libssl-dev \
@@ -50,7 +55,7 @@ RUN apt-get update && apt-get install -y \
   man git libxrender1 \
   pyqt4-dev-tools \
   gnupg procps && \
-  apt-get clean && rm -rf /var/lib/apt/lists/*
+  apt-get clean && rm -rf /var/lib/apt/lists/* && ln -s /bin/tar /bin/gtar
 
 RUN REPO="http://www.deb-multimedia.org stretch main non-free" \
  && echo "deb $REPO stretch main non-free" >> /etc/apt/sources.list \
