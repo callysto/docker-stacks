@@ -1,7 +1,7 @@
 # Build as jupyterhub/singleuser
 # Run with the DockerSpawner in JupyterHub
 
-FROM jupyter/pims-minimal
+FROM callysto/pims-minimal
 
 MAINTAINER Ian Allison <iana@pims.math.ca>
 

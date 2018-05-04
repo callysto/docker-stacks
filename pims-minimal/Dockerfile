@@ -1,4 +1,4 @@
-FROM jupyter/scipy-notebook
+FROM callysto/scipy-notebook
 
 MAINTAINER Ian Allison <iana@pims.math.ca>
 

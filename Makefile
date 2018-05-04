@@ -4,7 +4,7 @@
 
 # Use bash for inline if-statements in arch_patch target
 SHELL:=bash
-OWNER:=jupyter
+OWNER:=callysto
 ARCH:=$(shell uname -m)
 DIFF_RANGE?=master...HEAD
 
@@ -14,13 +14,7 @@ ALL_STACKS:=base-notebook
 else
 ALL_STACKS:=base-notebook \
 	minimal-notebook \
-	r-notebook \
 	scipy-notebook \
-	tensorflow-notebook \
-	datascience-notebook \
-	pyspark-notebook \
-	all-spark-notebook \
-	julia-notebook \
 	pims-minimal \
 	pims-r
 endif
