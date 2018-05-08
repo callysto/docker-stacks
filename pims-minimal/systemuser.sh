@@ -23,10 +23,10 @@ if [[ -n "${NOTEBOOK_DIR:+x}" ]]; then
     notebook_arg="--notebook-dir=${NOTEBOOK_DIR}"
 fi
 
-if [[ ! -z $JUPYTERHUB_API_TOKEN ]]; then
+if [[ -n $JUPYTERHUB_API_TOKEN ]]; then
   sudo -E PATH="${CONDA_DIR}/bin:$PATH" -E LD_LIBRARY_PATH="${CONDA_DIR}/lib" -u $NB_USER jupyterhub-singleuser \
     ${notebook_arg} \
     $@
 else
-  . /usr/local/bin/start.sh jupyter notebook $*
+  . /usr/local/bin/start-notebook.sh
 fi

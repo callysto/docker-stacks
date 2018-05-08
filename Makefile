@@ -85,3 +85,6 @@ test/%: ## run tests against a stack
 
 test/base-notebook: ## test supported options in the base notebook
 	@TEST_IMAGE="$(OWNER)/$(notdir $@)" pytest test base-notebook/test
+
+test/pims-r: ## re-run the base notebook tests in the pims-r container to ensure tests still pass
+	@TEST_IMAGE="$(OWNER)/$(notdir $@)" pytest test base-notebook/test
