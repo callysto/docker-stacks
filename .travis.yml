@@ -16,7 +16,8 @@ before_deploy:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 deploy:
   provider: script
-  script: >-
+  script:
+  - |
     docker push callysto/base-notebook
     docker push callysto/minimal-notebook
     docker push callysto/pims-minimal
