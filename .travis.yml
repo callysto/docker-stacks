@@ -1,10 +1,25 @@
 language: python
 python:
-    - 3.6
+- 3.6
 sudo: required
 services:
-    - docker
+- docker
 install:
-    - make dev-env
+- make dev-env
 script:
-    - make build-test-all DARGS="--build-arg TEST_ONLY_BUILD=1"
+- make build-test-all DARGS="--build-arg TEST_ONLY_BUILD=1"
+env:
+  global:
+  - secure: gNbs0GGFSRzyCRMzcjVre3cyHVuxzILlAubVzs43IeZYsbNgXL8hk2KZVwVrlUTyfGp5Ap4vPB4bCm+LXn0YvatzMKczRCK2Q+HTz7Ogc60yjWPuljLj39Kqz3x+VPhQk37lNVZOJthLB8tASdomH6A2TwlFBxiC2NTi6DxxEjpTTETfnxZ6ZD/egDETcK0a0Le9M7ARejyjZzwjmH3kT/gGCb5A8GiwoqdrGdiauBQ1wREdF2pqyAewgR6EVMxTVUXISKZ/DMMICq739CZhpMGn/MbM3ezWd5+UYykTCOaLjZnRyMK4/p0e86vimXRJadTkxr7jC/BnNut1iSATUfahtgT9idyCiIqFa9pGvKJjfUQ8pN+Jf46uUfEaQRmO3uyhiqz1PKqkaPVPgqzE6Av5/AYuufX0vQkdoBhtSmJ0iK+aqd/h6EgK5c56nV2qA5DTwodRCJOvBcldET2Cn4Tg1GuO18EEfWIKiJN+MIronKhum9G+a2mxB/qgQujDUC7pl5tiTnkaD7nhKqR1sJtTNJPSShafRceFkEyKsyi8qt9OmLfqNrx5l68bzrLfIkxhpkFVMPrTPl7dC0I43Esz8KuVz6YFxwwtg4/y6eTcMSIWNQeeOq5qmy379dHDStT/pMOJUv5eJpNaX84hVHpIBKykYV6AeZkgWXZYy4k=
+  - secure: eqsG/+g/px/4jwoPvQQPWFAnHUq494m4btztoXrldbqiZxgr5BpAXTQ0zQVwOZuOmcj8kTnsdDWP7eA2qj3DuzFqxs9hwjLfd/MXxamTbpwqyb06hJSx5VKYfbmQ6ip6UksRus2KjX7PCJVh0LJVZ6crTWvoDSTNf4zgdK1l8xSHxihKR5H9zEHC7N0bJU3nI04753/itgfcQFylSgz22Ja727B/xFdB/Ky2aOBcWhZQCqtHydFbCw4W/p9sW8DIVUIpOBAz6wZjkU3rwo4org/y7K1P1Wyo24N1OcK7jJSeqqQVzoboXq0g1N1Hv65BwVNc6GYyM5wNvjqiVirqbdkwiT1g1QbKCP9gLL/VSYXjcZKJSdJyhP1jc5xpMPGAynNzWWjI8uKbq3+gcwThciZnJZB2oDpL3QBpQVqdjJUduICKicQNNSILnHZpSHMoALj5y2SOdMYke5ZcJHJOpt0pFaT6gfL6hSwgFkDBSC81Tzybm3oQxDU6i61WQ2HNHsBigj1K/JWM4GodIbaeT/H1++mePo3crfAbzCy7FPG/b9FJlzOijD+5lwTAzPf6PpcA6C2bDqNYBTby7YUaFxyryj6Aw9iYI1C8pHnRazhQvHeDjpxyS1Py4EgzL5Tzh4CubQ8j1pNw8DxeW/krONt0B05If52d68+i41MSmSc=
+before_deploy:
+- docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+deploy:
+  provider: script
+  script: >-
+    docker push callysto/base-notebook
+    docker push callysto/minimal-notebook
+    docker push callysto/pims-minimal
+    docker push callysto/pims-r
+  on:
+    all_branches: true
