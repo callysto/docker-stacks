@@ -92,5 +92,6 @@ test/pims-r: ## re-run the base notebook tests in the pims-r container to ensure
 callysto/push: ## push callysto images to docker hub
 	docker push callysto/base-notebook
 	docker push callysto/minimal-notebook
-	docker push callysto/pims-notebook
+	docker push callysto/scipy-notebook
+	docker push callysto/pims-minimal
 	docker push callysto/pims-r
