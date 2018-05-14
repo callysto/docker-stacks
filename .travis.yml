@@ -16,11 +16,6 @@ before_deploy:
 - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 deploy:
   provider: script
-  script:
-  - |
-    docker push callysto/base-notebook
-    docker push callysto/minimal-notebook
-    docker push callysto/pims-minimal
-    docker push callysto/pims-r
+  script: make callysto/push
   on:
     all_branches: true
