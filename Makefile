@@ -11,11 +11,12 @@ ARCH:=$(shell uname -m)
 ifeq ($(ARCH),ppc64le)
 ALL_STACKS:=base-notebook
 else
-ALL_STACKS:=base-notebook \
-	minimal-notebook \
-	scipy-notebook \
-	pims-minimal \
-	pims-r
+#ALL_STACKS:=base-notebook \
+#	minimal-notebook \
+#	scipy-notebook \
+#	pims-minimal \
+#	pims-r
+ALL_STACKS:=base-notebook
 endif
 
 ALL_IMAGES:=$(ALL_STACKS)
@@ -65,3 +66,9 @@ test/base-notebook: ## test supported options in the base notebook
 
 test/pims-r: ## re-run the base notebook tests in the pims-r container to ensure tests still pass
 	@TEST_IMAGE="$(OWNER)/$(notdir $@)" pytest test base-notebook/test
+
+callysto/push: ## push callysto images to docker hub
+	docker push callysto/base-notebook
+	docker push callysto/minimal-notebook
+	docker push callysto/pims-notebook
+	docker push callysto/pims-r
