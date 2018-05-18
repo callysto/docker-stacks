@@ -6,6 +6,10 @@ RUN conda install --yes astropy \
   atlas \
   boto \
   beautifulsoup4 \
+  cartopy \
+  colorlover \
+  cvxopt \
+  geos \
   gfortran_linux-64 \
   gmp \
   gmaps \
@@ -16,8 +20,15 @@ RUN conda install --yes astropy \
   mpfr \
   mpld3 \
   nltk \
+  pandas=0.22* \
+  plotly \
+  proj4 \
   pyqt \
+  pysal \
+  qgrid \
+  rdflib \
   tensorflow \
+  textblob \
   lxml && \
   conda clean -tipsy
 
