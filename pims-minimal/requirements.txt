@@ -1,3 +1,5 @@
+geopandas
+latimes-calculate
 pdfdocument
 pivottablejs
 psutil
