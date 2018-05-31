@@ -132,3 +132,4 @@ Update the `ubuntu:16.04` SHA in the most-base images (e.g., base-notebook). Sub
 4. Run `make retry/release-all`.
 
 When `make retry/release-all` successfully pushes the last of its images to Docker Hub (currently `jupyter/all-spark-notebook`), Docker Hub invokes [the webhook](https://github.com/jupyter/docker-stacks/blob/master/internal/docker-stacks-webhook/) which updates the [Docker build history](https://github.com/jupyter/docker-stacks/wiki/Docker-build-history) wiki page.
+
