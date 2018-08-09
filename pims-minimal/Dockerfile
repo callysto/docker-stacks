@@ -81,14 +81,13 @@ COPY pip.conf /etc/pip.conf
 
 ENV SHELL /bin/bash
 
-CMD ["bash", "/srv/singleuser/systemuser.sh"]
-
 COPY jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_config.py
 
 RUN useradd -m -s /bin/bash -N -u 9999 jupyter
-  && echo "backend: Agg" >> /home/$NB_USER/.config/matplotlib/matplotlibrc	USER jupyter
+USER jupyter
 # Configure environment
 ENV NB_USER=jupyter \
     NB_UID=9999
 ENV HOME=/home/$NB_USER
 WORKDIR $HOME
+

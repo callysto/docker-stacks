@@ -5,6 +5,7 @@ FROM callysto/pims-minimal
 
 MAINTAINER Ian Allison <iana@pims.math.ca>
 
+# Configure environment
 ENV NB_USER=jovyan
 ENV HOME=/home/$NB_USER
 USER $NB_USER
@@ -47,3 +48,4 @@ USER jupyter
 ENV NB_USER=jupyter \
     NB_UID=9999
 ENV HOME=/home/$NB_USER
+
