@@ -33,27 +33,28 @@ if [ $(id -u) == 0 ] ; then
     # Only attempt to change the jovyan username if it exists
     if id jovyan &> /dev/null ; then
         echo "Set username to: $NB_USER"
-        usermod -d /home/$NB_USER -l $NB_USER jovyan
+        echo "Set homedir to: $HOME"
+        usermod -d "$HOME" -l $NB_USER jovyan
     fi
 
     # Handle case where provisioned storage does not have the correct permissions by default
     # Ex: default NFS/EFS (no auto-uid/gid)
     if [[ "$CHOWN_HOME" == "1" || "$CHOWN_HOME" == 'yes' ]]; then
         echo "Changing ownership of /home/$NB_USER to $NB_UID:$NB_GID"
-        chown -R $NB_UID:$NB_GID /home/$NB_USER
+        chown -R $NB_UID:$NB_GID "$HOME"
     fi
 
     # handle home and working directory if the username changed
     if [[ "$NB_USER" != "jovyan" ]]; then
         # changing username, make sure homedir exists
         # (it could be mounted, and we shouldn't create it if it already exists)
-        if [[ ! -e "/home/$NB_USER" ]]; then
-            echo "Relocating home dir to /home/$NB_USER"
-            mv /home/jovyan "/home/$NB_USER"
+        if [[ ! -e "$HOME" ]]; then
+            echo "Relocating home dir to $HOME"
+            mv /home/jovyan "$HOME"
         fi
         # if workdir is in /home/jovyan, cd to /home/$NB_USER
         if [[ "$PWD/" == "/home/jovyan/"* ]]; then
-            newcwd="/home/$NB_USER/${PWD:13}"
+            newcwd="$HOME/${PWD:13}"
             echo "Setting CWD to $newcwd"
             cd "$newcwd"
         fi
@@ -110,7 +111,7 @@ else
         fi
 
         # Warn if the user isn't going to be able to write files to $HOME.
-        if [[ ! -w /home/jovyan ]]; then
+        if [[ ! -w "$HOME" ]]; then
             echo 'Container must be run with group users to update files'
         fi
     else

@@ -1,9 +1,9 @@
 # Copyright (c) Jupyter Development Team.
 # Distributed under the terms of the Modified BSD License.
 
-# Ubuntu 16.04 (xenial) from 2018-02-28
-# https://github.com/docker-library/official-images/commit/8728671fdca3dfc029be4ab838ab5315aa125181
-FROM ubuntu:xenial-20180228@sha256:e348fbbea0e0a0e73ab0370de151e7800684445c509d46195aef73e090a49bd6
+# Debian stable-slim from December 12th 2017 - Ian Allison 
+# (see docker-library/repo-info/repos/debian/tag-details.md)
+FROM debian@sha256:49eb885c1667754577a63f0121a6ec079068eca66388e03214c23a843b5dd4f7
 
 LABEL maintainer="Jupyter Project <jupyter@googlegroups.com>"
 
@@ -12,7 +12,9 @@ USER root
 # Install all OS dependencies for notebook server that starts but lacks all
 # features (e.g., download as all possible file formats)
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get -yq dist-upgrade \
+RUN REPO=http://cdn-fastly.deb.debian.org \
+ && echo "deb $REPO/debian stretch main\ndeb $REPO/debian-security stretch/updates main" > /etc/apt/sources.list \
+ && apt-get update && apt-get -yq dist-upgrade \
  && apt-get install -yq --no-install-recommends \
     wget \
     bzip2 \
