@@ -47,6 +47,9 @@ RUN jupyter lab build
 RUN pip install git+https://github.com/data-8/nbgitpuller \
  && jupyter serverextension enable --sys-prefix nbgitpuller
 
+RUN mkdir -p /home/$NB_USER/.config/matplotlib \
+  && echo "backend: Agg" >> /home/$NB_USER/.config/matplotlib/matplotlibrc
+
 USER root
 # fetch juptyerhub-singleuser entrypoint
 RUN wget -q https://raw.githubusercontent.com/jupyterhub/jupyterhub/0.8.1/scripts/jupyterhub-singleuser -O /usr/local/bin/jupyterhub-singleuser && \
@@ -80,13 +83,13 @@ COPY pip.conf /etc/pip.conf
 
 ENV SHELL /bin/bash
 
-COPY systemuser.sh /srv/singleuser/systemuser.sh
-
-CMD ["bash", "/srv/singleuser/systemuser.sh"]
-
-RUN mkdir -p /opt/notebook/local_templates && mkdir -p /etc/jupyter
-COPY notebook.html /opt/notebook/local_templates/notebook.html
 COPY jupyter_notebook_config.py /etc/jupyter/jupyter_notebook_config.py
 
-RUN mkdir -p /home/$NB_USER/.config/matplotlib \
-  && echo "backend: Agg" >> /home/$NB_USER/.config/matplotlib/matplotlibrc
+RUN useradd -m -s /bin/bash -N -u 9999 jupyter
+USER jupyter
+# Configure environment
+ENV NB_USER=jupyter \
+    NB_UID=9999
+ENV HOME=/home/$NB_USER
+WORKDIR $HOME
+

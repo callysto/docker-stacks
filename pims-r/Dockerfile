@@ -5,6 +5,9 @@ FROM callysto/pims-minimal
 
 MAINTAINER Ian Allison <iana@pims.math.ca>
 
+# Configure environment
+ENV NB_USER=jovyan
+ENV HOME=/home/$NB_USER
 USER $NB_USER
 
 # R
@@ -40,4 +43,9 @@ RUN conda config --add channels r && \
 
 COPY Rprofile.site /opt/conda/lib/R/etc/Rprofile.site
 
-USER root
+USER jupyter
+# Configure environment
+ENV NB_USER=jupyter \
+    NB_UID=9999
+ENV HOME=/home/$NB_USER
+
