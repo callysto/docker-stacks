@@ -22,6 +22,10 @@ endif
 
 ALL_IMAGES:=$(ALL_STACKS)
 
+ifeq ($(COMMIT),)
+	COMMIT := latest
+endif
+
 help:
 # http://marmelab.com/blog/2016/02/29/auto-documented-makefile.html
 	@echo "jupyter/docker-stacks"
@@ -86,10 +90,10 @@ test/%: ## run tests against a stack
 	@TEST_IMAGE="$(OWNER)/$(notdir $@)" pytest test
 
 test/base-notebook: ## test supported options in the base notebook
-	@TEST_IMAGE="$(OWNER)/$(notdir $@)" pytest test base-notebook/test
+	@TEST_IMAGE="$(OWNER)/$(notdir $@)" pytest test pims-minimal/test
 
 test/pims-r: ## re-run the base notebook tests in the pims-r container to ensure tests still pass
-	@TEST_IMAGE="$(OWNER)/$(notdir $@)" pytest test base-notebook/test
+	@TEST_IMAGE="$(OWNER)/$(notdir $@)" pytest test pims-minimal/test
 
 test/callysto-swift: ## ignore tests for swiftfs since it requires a functional swift environment
 	@echo ""
