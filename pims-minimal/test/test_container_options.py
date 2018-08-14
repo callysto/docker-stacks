@@ -11,6 +11,7 @@ def test_cli_args(container, http_client):
     container.run(
         command=['start-notebook.sh', '--NotebookApp.token=""']
     )
+    time.sleep(5)
     resp = http_client.get('http://localhost:8888')
     resp.raise_for_status()
     assert 'login_submit' not in resp.text
