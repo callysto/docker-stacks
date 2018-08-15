@@ -97,6 +97,9 @@ test/pims-r: ## re-run the base notebook tests in the pims-r container to ensure
 test/callysto-swift: ## ignore tests for swiftfs since it requires a functional swift environment
 	@echo ""
 
+verify/%: ## verify an image works by testing it across several notebooks
+	docker run -it --rm --mount source=$$(pwd)/test-notebooks,target=/test-notebooks,type=bind $(OWNER)/$(notdir $@) bash /test-notebooks/test.sh
+
 callysto/push: ## push callysto images to docker hub
 ifndef DOCKER_USERNAME
 	$(error DOCKER_USERNAME is not set)
