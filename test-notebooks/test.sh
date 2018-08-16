@@ -2,8 +2,13 @@
 
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
-cp $DIR/*.ipynb /tmp
+cp -a $DIR/* /tmp
 
-for i in /tmp/*.ipynb; do
-  pytest --nbval-lax $i
-done
+pushd /tmp
+while IFS='' read -r dir ; do
+  pushd "$dir"
+  while IFS='' read -r notebook ; do
+    pytest --nbval-lax "$notebook"
+  done < <(ls *.ipynb)
+  popd
+done < <(ls -d */)

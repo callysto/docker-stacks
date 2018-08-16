@@ -7,3 +7,5 @@ pytest
 unidecode
 # Update Oct 2nd 2017
 cs103
+# Update Aug 15 2018
+fastkml

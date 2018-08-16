@@ -28,6 +28,7 @@ RUN conda install --yes astropy \
   pysal \
   qgrid \
   rdflib \
+  scrapy \
   tensorflow \
   textblob \
   lxml && \
