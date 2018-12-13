@@ -1,4 +1,4 @@
-localPkgDir <- "~/R/x86_64-pc-linux-gnu-library/3.4"
+localPkgDir <- "~/R/x86_64-pc-linux-gnu-library/3.5"
 dir.create(localPkgDir, recursive=TRUE, showWarnings = FALSE)
 
 .libPaths(c(localPkgDir, .libPaths()))

@@ -1,6 +1,7 @@
-FROM callysto/scipy-notebook
+ARG BASE_CONTAINER=callysto/scipy-notebook
+FROM $BASE_CONTAINER
 
-MAINTAINER Ian Allison <iana@pims.math.ca>
+LABEL maintainer="Ian Allison <iana@pims.math.ca>"
 
 RUN conda install --yes astropy \
   atlas \
@@ -70,14 +71,8 @@ RUN apt-get update && apt-get install -y \
   less openssh-client zip \
   man git libxrender1 \
   pyqt4-dev-tools \
-  gnupg procps && \
+  gnupg procps vim && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && ln -s /bin/tar /bin/gtar
-
-RUN REPO="http://www.deb-multimedia.org stretch main non-free" \
- && echo "deb $REPO stretch main non-free" >> /etc/apt/sources.list \
- && apt-key adv --keyserver pgp.mit.edu --recv-keys 65558117 \
- && apt-get update && apt-get install -y ffmpeg && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
 
 COPY pip.conf /etc/pip.conf
 
