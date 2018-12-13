@@ -1,9 +1,7 @@
-# Build as jupyterhub/singleuser
-# Run with the DockerSpawner in JupyterHub
+ARG BASE_CONTAINER=callysto/pims-notebook
+FROM $BASE_CONTAINER
 
-FROM callysto/pims-minimal
-
-MAINTAINER Ian Allison <iana@pims.math.ca>
+LABEL maintainer="Ian Allison <iana@pims.math.ca>"
 
 # Configure environment
 ENV NB_USER=jovyan
