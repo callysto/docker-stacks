@@ -1,4 +1,4 @@
-ARG BASE_CONTAINER=callysto/pims-notebook
+ARG BASE_CONTAINER=callysto/pims-minimal
 FROM $BASE_CONTAINER
 
 LABEL maintainer="Ian Allison <iana@pims.math.ca>"
