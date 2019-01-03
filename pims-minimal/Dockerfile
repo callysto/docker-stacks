@@ -76,7 +76,7 @@ RUN apt-get update && apt-get install -y \
   less openssh-client zip \
   man git libxrender1 \
   pyqt4-dev-tools \
-  gnupg procps vim && \
+  gnupg procps tzdata vim && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && ln -s /bin/tar /bin/gtar
 
 COPY pip.conf /etc/pip.conf
