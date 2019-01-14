@@ -21,6 +21,7 @@ RUN conda install --yes astropy \
   markdown \
   mpfr \
   mpld3 \
+  nbconvert \
   nbval \
   nltk \
   pandas \
