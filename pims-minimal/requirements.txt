@@ -9,3 +9,5 @@ unidecode
 cs103
 # Update Aug 15 2018
 fastkml
+# gitpuller-wrapper, Jan 14 2019
+git+https://github.com/callysto/gitpuller-wrapper#master
