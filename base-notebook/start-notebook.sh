@@ -4,6 +4,10 @@
 
 set -e
 
+# Fail if the home directory is not writeable
+touch ~/writeable.txt
+rm ~/writeable.txt
+
 if [[ ! -z "${JUPYTERHUB_API_TOKEN}" ]]; then
   # launched by JupyterHub, use single-user entrypoint
   exec /usr/local/bin/start-singleuser.sh $*
