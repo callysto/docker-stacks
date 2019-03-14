@@ -6,34 +6,34 @@ set -e
 
 # Exec the specified command or fall back on bash
 if [ $# -eq 0 ]; then
-    cmd=bash
+    cmd=( "bash" )
 else
-    cmd=$*
+    cmd=( "$@" )
 fi
 
 run-hooks () {
     # Source scripts or run executable files in a directory
     if [[ ! -d "$1" ]] ; then
-	return
+        return
     fi
     echo "$0: running hooks in $1"
-    for f in "$1"/*; do
-	case "$f" in
-	    *.sh)
-		echo "$0: running $f"
-		source "$f"
-		;;
-	    *)
-		if [[ -x "$f" ]] ; then
-		    echo "$0: running $f"
-		    "$f"
-		else
-		    echo "$0: ignoring $f"
-		fi
-		;;
-	esac
-    echo "$0: done running hooks in $1"
+    for f in "$1/"*; do
+        case "$f" in
+            *.sh)
+                echo "$0: running $f"
+                source "$f"
+                ;;
+            *)
+                if [[ -x "$f" ]] ; then
+                    echo "$0: running $f"
+                    "$f"
+                else
+                    echo "$0: ignoring $f"
+                fi
+                ;;
+        esac
     done
+    echo "$0: done running hooks in $1"
 }
 
 run-hooks /usr/local/bin/start-notebook.d
@@ -86,7 +86,7 @@ if [ $(id -u) == 0 ] ; then
     if [ "$NB_GID" != $(id -g $NB_USER) ] ; then
         echo "Add $NB_USER to group: $NB_GID"
         groupadd -g $NB_GID -o ${NB_GROUP:-${NB_USER}}
-        usermod -g $NB_GID -a -G $NB_GID,100 $NB_USER
+        usermod  -g $NB_GID -aG 100 $NB_USER
     fi
 
     # Enable sudo if requested
@@ -101,15 +101,15 @@ if [ $(id -u) == 0 ] ; then
     # Exec the command as NB_USER with the PATH and the rest of
     # the environment preserved
     run-hooks /usr/local/bin/before-notebook.d
-    echo "Executing the command: $cmd"
-    exec sudo -E -H -u $NB_USER PATH=$PATH XDG_CACHE_HOME=/home/$NB_USER/.cache PYTHONPATH=$PYTHONPATH $cmd
+    echo "Executing the command: ${cmd[@]}"
+    exec sudo -E -H -u $NB_USER PATH=$PATH XDG_CACHE_HOME=/home/$NB_USER/.cache PYTHONPATH=${PYTHONPATH:-} "${cmd[@]}"
 else
     if [[ "$NB_UID" == "$(id -u jovyan)" && "$NB_GID" == "$(id -g jovyan)" ]]; then
         # User is not attempting to override user/group via environment
         # variables, but they could still have overridden the uid/gid that
         # container runs as. Check that the user has an entry in the passwd
         # file and if not add an entry.
-        whoami &> /dev/null || STATUS=$? && true
+        STATUS=0 && whoami &> /dev/null || STATUS=$? && true
         if [[ "$STATUS" != "0" ]]; then
             if [[ -w /etc/passwd ]]; then
                 echo "Adding passwd file entry for $(id -u)"
@@ -145,6 +145,6 @@ else
 
     # Execute the command
     run-hooks /usr/local/bin/before-notebook.d
-    echo "Executing the command: $cmd"
-    exec $cmd
+    echo "Executing the command: ${cmd[@]}"
+    exec "${cmd[@]}"
 fi
