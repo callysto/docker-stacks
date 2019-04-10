@@ -1,11 +1,11 @@
-[![Google Group badge](https://img.shields.io/badge/-Google%20Group-lightgrey.svg)](https://groups.google.com/forum/#!forum/jupyter)
+[![Discourse badge](https://img.shields.io/discourse/https/discourse.jupyter.org/users.svg?color=%23f37626)](https://discourse.jupyter.org/c/questions "Jupyter Discourse Q&A")
 [![Read the Docs badge](https://img.shields.io/readthedocs/jupyter-docker-stacks.svg)](https://jupyter-docker-stacks.readthedocs.io/en/latest/ "Documentation build status")
 [![DockerHub badge](https://images.microbadger.com/badges/version/jupyter/base-notebook.svg)](https://microbadger.com/images/jupyter/base-notebook "Recent tag/version of jupyter/base-notebook")
 [![Binder badget](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/jupyter/docker-stacks/master?filepath=README.ipynb "Launch a jupyter/base-notebook container on mybinder.org")
 
 # Jupyter Docker Stacks
 
-Jupyter Docker Stacks are a set of ready-to-run Docker images containing Jupyter applications and interactive computing tools.
+Jupyter Docker Stacks are a set of ready-to-run [Docker images](https://hub.docker.com/u/jupyter) containing Jupyter applications and interactive computing tools.
 
 ## Quick Start
 
@@ -39,5 +39,6 @@ Please see the [Contributor Guide on ReadTheDocs](http://jupyter-docker-stacks.r
 
 * [Documentation on ReadTheDocs](http://jupyter-docker-stacks.readthedocs.io/)
 * [Issue Tracker on GitHub](https://github.com/jupyter/docker-stacks)
-* [Jupyter Google Group](https://groups.google.com/forum/#!forum/jupyter)
+* [Jupyter Discourse Q&A](https://discourse.jupyter.org/c/questions)
 * [Jupyter Website](https://jupyter.org)
+* [Images on DockerHub](https://hub.docker.com/u/jupyter)
