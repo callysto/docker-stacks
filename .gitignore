@@ -67,3 +67,5 @@ dockerspawner
 dockerspawner.tar.gz
 *.orig
 .ipynb_checkpoints/
+.vscode/
+.pytest_cache/
