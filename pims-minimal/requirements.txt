@@ -9,3 +9,8 @@ unidecode
 cs103
 # Update Aug 15 2018
 fastkml
+# Update Nov 21 2019
+cufflinks
+plotly-express
+mobilechelonian
+spacy
