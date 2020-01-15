@@ -14,21 +14,21 @@ RUN conda config --add channels r && \
     'gxx_linux-64' \
     'gmp' \
     'mpfr' \
-    'r-base=3.5*' \
-    'r-essentials=3.5*' \
+    'r-base=3.6*' \
+    'r-essentials=3.6*' \
     'r-gmp' \
     'r-irkernel=0.8*' \
     'r-plyr=1.8*' \
-    'r-devtools=1.13*' \
-    'r-dplyr=0.7*' \
-    'r-ggplot2=3.0*' \
+    'r-devtools=2.0*' \
+    'r-dplyr=0.8*' \
+    'r-ggplot2=3.1*' \
     'r-tidyr=0.8*' \
     'r-lsmeans' \
-    'r-shiny=1.1*' \
-    'r-rmarkdown=1.10*' \
-    'r-forecast=8.4*' \
-    'r-stringr=1.3*' \
-    'r-stringi=1.2*' \
+    'r-shiny=1.3*' \
+    'r-rmarkdown=1.12*' \
+    'r-forecast=8.6*' \
+    'r-stringr=1.4*' \
+    'r-stringi=1.4*' \
     'r-rsqlite=2.1*' \
     'r-reshape2=1.4*' \
     'r-nycflights13=1.0*' \
@@ -36,8 +36,9 @@ RUN conda config --add channels r && \
     'r-caret=6.0*' \
     'r-rcurl=1.95*' \
     'r-crayon=1.3*' \
+    'r-testthat=2.1*' \
     'r-tidyverse=1.2*' \
-    'r-randomforest=4.6*' && conda clean -tipsy
+    'r-randomforest=4.6*' && conda clean --all -f -y
 
 COPY Rprofile.site /opt/conda/lib/R/etc/Rprofile.site
 

@@ -3,8 +3,8 @@ FROM $BASE_CONTAINER
 
 LABEL maintainer="Ian Allison <iana@pims.math.ca>"
 
-RUN conda install --yes astropy \
-  atlas \
+RUN conda install --yes -c anaconda atlas && \
+  conda install --yes astropy \
   boto \
   beautifulsoup4 \
   cartopy \
@@ -17,6 +17,7 @@ RUN conda install --yes astropy \
   gmaps \
   keras \
   html5lib \
+  imageio \
   lapack \
   markdown \
   mpfr \
@@ -36,6 +37,7 @@ RUN conda install --yes astropy \
   textblob \
   tqdm \
   lxml && \
+  conda remove --quiet --yes --force qt pyqt && \
   conda clean -tipsy
 
 RUN conda install --yes -c ian.e.preston stats_can && \
