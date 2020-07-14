@@ -3,19 +3,20 @@ FROM $BASE_CONTAINER
 
 LABEL maintainer="Ian Allison <iana@pims.math.ca>"
 
-RUN conda install --yes -c anaconda atlas && \
-  conda install --yes astropy \
-  boto \
+RUN conda install --quiet --yes \
+  altair \
+  astropy \
+  boto3 \
   beautifulsoup4 \
   cartopy \
   colorlover \
   cvxopt \
   fuzzywuzzy \
   geos \
+  geopandas \
   gfortran_linux-64 \
   gmp \
   gmaps \
-  keras \
   html5lib \
   imageio \
   lapack \
@@ -23,8 +24,10 @@ RUN conda install --yes -c anaconda atlas && \
   mpfr \
   mpld3 \
   nbconvert \
+  nbgitpuller \
   nbval \
   nltk \
+  openblas=0.3.6 \
   pandas \
   plotly \
   proj4 \
@@ -32,41 +35,40 @@ RUN conda install --yes -c anaconda atlas && \
   pysal \
   qgrid \
   rdflib \
+  rise \
   scrapy \
-  tensorflow \
+  spacy \
+  spacy-model-en_core_web_sm \
+  spacy-model-en_core_web_md \
+  spacy-model-en_core_web_lg \
   textblob \
   tqdm \
+  vega \
   lxml && \
   conda remove --quiet --yes --force qt pyqt && \
-  conda clean -tipsy
+  conda clean --all -f -y
 
 RUN conda install --yes -c ian.e.preston stats_can && \
-  conda clean -tipsy
+  conda clean --all -f -y
 
-RUN conda install --yes -c damianavila82 rise && \
-  conda clean -tipsy
-
-COPY requirements.txt /tmp/requirements.txt
-# And the stuff that isn't in anaconda
-RUN pip install -r /tmp/requirements.txt
-
+RUN jupyter labextension install @jupyterlab/toc --no-build \
+ && jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build \
+ && jupyter labextension install plotlywidget --no-build \
+ && jupyter labextension install jupyterlab-plotly --no-build \
+ && jupyter lab build
 RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix
 RUN jupyter lab build
 
-RUN pip install git+https://github.com/data-8/nbgitpuller \
- && jupyter serverextension enable --sys-prefix nbgitpuller
 
 RUN mkdir -p /home/$NB_USER/.config/matplotlib \
   && echo "backend: Agg" >> /home/$NB_USER/.config/matplotlib/matplotlibrc
 
 USER root
-# fetch juptyerhub-singleuser entrypoint
-RUN wget -q https://raw.githubusercontent.com/jupyterhub/jupyterhub/0.9.4/scripts/jupyterhub-singleuser -O /usr/local/bin/jupyterhub-singleuser && \
-    chmod 755 /usr/local/bin/jupyterhub-singleuser
 
 RUN apt-get update && apt-get install -y \
   build-essential \
   curl \
+  dvipng \
   fonts-dejavu \
   python-dev \
   hdf5-tools \
@@ -83,6 +85,8 @@ RUN apt-get update && apt-get install -y \
   apt-get clean && rm -rf /var/lib/apt/lists/* && ln -s /bin/tar /bin/gtar
 
 COPY pip.conf /etc/pip.conf
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
 
 ENV SHELL /bin/bash
 
@@ -96,4 +100,3 @@ ENV NB_USER=jupyter \
 ENV XDG_CACHE_HOME=/home/$NB_USER/.cache/ \
     HOME=/home/$NB_USER
 WORKDIR $HOME
-

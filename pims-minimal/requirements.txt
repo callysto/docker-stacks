@@ -13,4 +13,5 @@ fastkml
 cufflinks
 plotly-express
 mobilechelonian
-spacy
+# Tensorflow in conda is broken
+tensorflow==2.2.*
