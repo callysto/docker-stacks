@@ -27,10 +27,11 @@ RUN conda install --quiet --yes \
   nbgitpuller \
   nbval \
   nltk \
-  openblas=0.3.6 \
+  nodejs \
+  openblas \
   pandas \
   plotly \
-  proj4 \
+  proj \
   pyqt \
   pysal \
   qgrid \
@@ -44,6 +45,7 @@ RUN conda install --quiet --yes \
   textblob \
   tqdm \
   vega \
+  vega_datasets \
   lxml && \
   conda remove --quiet --yes --force qt pyqt && \
   conda clean --all -f -y
@@ -72,7 +74,7 @@ RUN apt-get update && apt-get install -y \
   fonts-dejavu \
   python-dev \
   hdf5-tools \
-  libhdf5-100 \
+  libhdf5-103 \
   libgmp-dev \
   libmpfr-dev \
   libzmq5 \
@@ -80,7 +82,7 @@ RUN apt-get update && apt-get install -y \
   libssl-dev \
   less openssh-client zip \
   man git libxrender1 \
-  pyqt4-dev-tools \
+  pyqt5-dev-tools \
   gnupg procps tzdata vim && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && ln -s /bin/tar /bin/gtar
 
