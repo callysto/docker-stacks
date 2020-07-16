@@ -15,3 +15,7 @@ plotly-express
 mobilechelonian
 # Tensorflow in conda is broken
 tensorflow==2.2.*
+# Update July 15, 2020
+gTTS
+# Callysto nbextension - temporary fix for CAN-156
+git+https://github.com/callysto/callystonb

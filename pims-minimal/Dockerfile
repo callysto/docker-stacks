@@ -11,12 +11,15 @@ RUN conda install --quiet --yes \
   cartopy \
   colorlover \
   cvxopt \
+  folium \
   fuzzywuzzy \
   geos \
   geopandas \
+  geopy \
   gfortran_linux-64 \
   gmp \
   gmaps \
+  googletrans \
   html5lib \
   imageio \
   lapack \
@@ -46,6 +49,7 @@ RUN conda install --quiet --yes \
   tqdm \
   vega \
   vega_datasets \
+  wikipedia \
   lxml && \
   conda remove --quiet --yes --force qt pyqt && \
   conda clean --all -f -y
@@ -53,17 +57,6 @@ RUN conda install --quiet --yes \
 RUN conda install --yes -c ian.e.preston stats_can && \
   conda clean --all -f -y
 
-RUN jupyter labextension install @jupyterlab/toc --no-build \
- && jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build \
- && jupyter labextension install plotlywidget --no-build \
- && jupyter labextension install jupyterlab-plotly --no-build \
- && jupyter lab build
-RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix
-RUN jupyter lab build
-
-
-RUN mkdir -p /home/$NB_USER/.config/matplotlib \
-  && echo "backend: Agg" >> /home/$NB_USER/.config/matplotlib/matplotlibrc
 
 USER root
 
@@ -89,6 +82,18 @@ RUN apt-get update && apt-get install -y \
 COPY pip.conf /etc/pip.conf
 COPY requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt
+
+RUN jupyter labextension install @jupyterlab/toc --no-build \
+ && jupyter labextension install @8080labs/qgrid --no-build \
+ && jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build \
+ && jupyter labextension install plotlywidget --no-build \
+ && jupyter labextension install jupyterlab-plotly --no-build \
+ && jupyter lab build
+RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix \
+ && jupyter nbextension enable --py callystonb --sys-prefix
+
+RUN mkdir -p /home/$NB_USER/.config/matplotlib \
+  && echo "backend: Agg" >> /home/$NB_USER/.config/matplotlib/matplotlibrc
 
 ENV SHELL /bin/bash
 
