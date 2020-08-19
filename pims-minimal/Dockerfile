@@ -46,6 +46,7 @@ RUN conda install --quiet --yes \
   spacy-model-en_core_web_md \
   spacy-model-en_core_web_lg \
   textblob \
+  textstat \
   tqdm \
   vega \
   vega_datasets \
