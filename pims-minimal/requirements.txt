@@ -23,3 +23,4 @@ git+https://github.com/callysto/callystonb
 pycountry-convert
 pytrends
 shifterator
+wbdata
