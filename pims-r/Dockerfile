@@ -15,7 +15,7 @@ RUN conda install --quiet --yes \
     'mpfr' \
     'r-base=4.0*' \
     'r-essentials=4.0*' \
-    'r-gmp' \
+    'r-gmp=0.6' \
     'r-irkernel=1.1*' \
     'r-plyr=1.8*' \
     'r-devtools=2.3*' \
@@ -24,12 +24,12 @@ RUN conda install --quiet --yes \
     'r-ggally=2.0*' \
     'r-hmisc=4.4*' \
     'r-tidyr=1.1*' \
-    'r-lsmeans' \
+    'r-lsmeans=2.30*' \
     'r-shiny=1.5*' \
-    'r-rmarkdown=2.3*' \
-    'r-forecast=8.12*' \
+    'r-rmarkdown=2.5*' \
+    'r-forecast=8.13*' \
     'r-stringr=1.4*' \
-    'r-stringi=1.4*' \
+    'r-stringi=1.5*' \
     'r-rsqlite=2.2*' \
     'r-reshape2=1.4*' \
     'r-nycflights13=1.0*' \

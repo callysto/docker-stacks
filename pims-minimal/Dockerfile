@@ -8,6 +8,7 @@ RUN conda install --quiet --yes \
   astropy \
   boto3 \
   beautifulsoup4 \
+  biopython \
   cartopy \
   colorlover \
   cvxopt \
@@ -22,6 +23,7 @@ RUN conda install --quiet --yes \
   googletrans \
   html5lib \
   imageio \
+  ipysheet \
   lapack \
   markdown \
   mpfr \
@@ -37,6 +39,7 @@ RUN conda install --quiet --yes \
   proj \
   pyqt \
   pysal \
+  pyspellchecker \
   qgrid \
   rdflib \
   rise \
@@ -51,6 +54,7 @@ RUN conda install --quiet --yes \
   vega \
   vega_datasets \
   wikipedia \
+  wordcloud \
   lxml && \
   conda remove --quiet --yes --force qt pyqt && \
   conda clean --all -f -y
