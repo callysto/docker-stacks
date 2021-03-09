@@ -89,7 +89,6 @@ COPY requirements.txt /tmp/requirements.txt
 RUN pip install -r /tmp/requirements.txt
 
 RUN jupyter labextension install @jupyterlab/toc --no-build \
- && jupyter labextension install @8080labs/qgrid --no-build \
  && jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build \
  && jupyter labextension install plotlywidget --no-build \
  && jupyter labextension install jupyterlab-plotly --no-build \
