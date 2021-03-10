@@ -17,6 +17,8 @@ mobilechelonian
 tensorflow==2.4.*
 # Update July 15, 2020
 gTTS
+# Bugs in google translate
+googletrans==3.1.0a0
 # Callysto nbextension - temporary fix for CAN-156
 git+https://github.com/callysto/callystonb
 # Added for Byron Aug 11, 2020

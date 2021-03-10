@@ -20,7 +20,6 @@ RUN conda install --quiet --yes \
   gfortran_linux-64 \
   gmp \
   gmaps \
-  googletrans \
   html5lib \
   imageio \
   ipysheet \
