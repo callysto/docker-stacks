@@ -26,3 +26,4 @@ pycountry-convert
 pytrends
 shifterator
 wbdata
+jupyter-tree-download
