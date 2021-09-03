@@ -1,26 +1,17 @@
-geopandas
 latimes-calculate
 pdfdocument
 pivottablejs
-psutil
-pytest
-unidecode
-# Update Oct 2nd 2017
-cs103
-# Update Aug 15 2018
-fastkml
 # Update Nov 21 2019
 cufflinks
 plotly-express
 mobilechelonian
-# Tensorflow in conda is broken
-tensorflow==2.4.*
 # Update July 15, 2020
 gTTS
 # Callysto nbextension - temporary fix for CAN-156
 git+https://github.com/callysto/callystonb
 # Added for Byron Aug 11, 2020
 pycountry-convert
-pytrends
 shifterator
 wbdata
+# Workaround for https://github.com/jupyterhub/nbgitpuller/issues/176
+git+https://github.com/jupyterhub/nbgitpuller.git
