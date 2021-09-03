@@ -13,5 +13,5 @@ git+https://github.com/callysto/callystonb
 pycountry-convert
 shifterator
 wbdata
-# Workaround for https://github.com/jupyterhub/nbgitpuller/issues/176
-git+https://github.com/jupyterhub/nbgitpuller.git
+# Workaround for https://github.com/jupyterhub/nbgitpuller/issues/176 waiting for conda
+nbgitpuller
