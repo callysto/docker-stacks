@@ -7,45 +7,53 @@ LABEL maintainer="Ian Allison <iana@pims.math.ca>"
 ENV NB_USER=jovyan
 ENV HOME=/home/$NB_USER
 USER $NB_USER
+WORKDIR $HOME
 
 # R
-RUN conda install --quiet --yes \
+RUN mamba install --quiet --yes \
     'gxx_linux-64' \
     'gmp' \
     'mpfr' \
-    'r-base=4.0*' \
-    'r-essentials=4.0*' \
-    'r-gmp=0.6' \
-    'r-irkernel=1.1*' \
-    'r-plyr=1.8*' \
-    'r-devtools=2.3*' \
-    'r-dplyr=1.0*' \
-    'r-ggplot2=3.3*' \
-    'r-ggally=2.1*' \
-    'r-hmisc=4.5*' \
-    'r-tidyr=1.1*' \
-    'r-lsmeans=2.30*' \
-    'r-shiny=1.6*' \
-    'r-rmarkdown=2.7*' \
-    'r-forecast=8.13*' \
-    'r-stringr=1.4*' \
-    'r-stringi=1.5*' \
-    'r-rsqlite=2.2*' \
-    'r-reshape2=1.4*' \
-    'r-nycflights13=1.0*' \
-    'r-car=3.0*' \
-    'r-caret=6.0*' \
-    'r-rcurl=1.98*' \
-    'r-crayon=1.4*' \
-    'r-testthat=3.0*' \
-    'r-tidyverse=1.3*' \
-    'r-randomforest=4.6*' && conda clean --all -f -y
+    'r-base' \
+    'r-essentials' \
+    'r-gmp' \
+    'r-irkernel' \
+    'r-plyr' \
+    'r-devtools' \
+    'r-dplyr' \
+    'r-ggplot2' \
+    'r-ggally' \
+    'r-hmisc' \
+    'r-tidyr' \
+    'r-languageserver' \
+    'r-lsmeans' \
+    'r-shiny' \
+    'r-rmarkdown' \
+    'r-forecast' \
+    'r-stringr' \
+    'r-stringi' \
+    'r-rsqlite' \
+    'r-reshape2' \
+    'r-nycflights13' \
+    'r-car' \
+    'r-caret' \
+    'r-rcurl' \
+    'r-crayon' \
+    'r-testthat' \
+    'r-tidyverse' \
+    'r-randomforest' \
+    'r-janitor' \
+    'r-palmerpenguins' \
+    && mamba clean --all -f -y
 
 COPY Rprofile.site /opt/conda/lib/R/etc/Rprofile.site
+
+RUN Rscript -e "install.packages('repurrsive', dependencies=TRUE)" && \
+  Rscript -e "install.packages('canlang', dependencies=TRUE)"
 
 USER jupyter
 # Configure environment
 ENV NB_USER=jupyter \
     NB_UID=9999
 ENV HOME=/home/$NB_USER
-
+WORKDIR $HOME

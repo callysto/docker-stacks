@@ -3,15 +3,17 @@ FROM $BASE_CONTAINER
 
 LABEL maintainer="Ian Allison <iana@pims.math.ca>"
 
-RUN conda install --quiet --yes \
+RUN mamba install --quiet --yes \
   altair \
   astropy \
+  black \
   boto3 \
   beautifulsoup4 \
   biopython \
   cartopy \
   colorlover \
   cvxopt \
+  flake8 \
   folium \
   fuzzywuzzy \
   geos \
@@ -19,48 +21,59 @@ RUN conda install --quiet --yes \
   geopy \
   gfortran_linux-64 \
   gmp \
-  gmaps \
+  geopandas \
+  googletrans \
   html5lib \
   imageio \
   ipysheet \
+  ipycanvas \
+  ipywidgets \
   lapack \
   markdown \
   mpfr \
   mpld3 \
   nbconvert \
-  nbgitpuller \
   nbval \
   nltk \
   nodejs \
-  openblas \
   pandas \
   plotly \
   proj \
+  psutil \
   pyqt \
   pysal \
   pyspellchecker \
+  pytest \
+  pytrends \
   qgrid \
   rdflib \
-  rise \
-  scrapy \
   spacy \
   spacy-model-en_core_web_sm \
   spacy-model-en_core_web_md \
   spacy-model-en_core_web_lg \
+  stats_can \
+  tensorflow \
   textblob \
   textstat \
   tqdm \
   vega \
   vega_datasets \
+  unidecode \
   wikipedia \
   wordcloud \
   lxml && \
-  conda remove --quiet --yes --force qt pyqt && \
-  conda clean --all -f -y
+  conda install rise && \
+  mamba remove --quiet --yes --force qt pyqt && \
+  mamba clean --all -f -y
 
-RUN conda install --yes -c ian.e.preston stats_can && \
-  conda clean --all -f -y
+COPY pip.conf /etc/pip.conf
+COPY requirements.txt /tmp/requirements.txt
+RUN pip install -r /tmp/requirements.txt
 
+RUN jupyter nbextension enable --py callystonb --sys-prefix
+
+RUN mkdir -p /home/$NB_USER/.config/matplotlib \
+  && echo "backend: Agg" >> /home/$NB_USER/.config/matplotlib/matplotlibrc
 
 USER root
 
@@ -83,20 +96,6 @@ RUN apt-get update && apt-get install -y \
   gnupg procps tzdata vim && \
   apt-get clean && rm -rf /var/lib/apt/lists/* && ln -s /bin/tar /bin/gtar
 
-COPY pip.conf /etc/pip.conf
-COPY requirements.txt /tmp/requirements.txt
-RUN pip install -r /tmp/requirements.txt
-
-RUN jupyter labextension install @jupyterlab/toc --no-build \
- && jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build \
- && jupyter labextension install plotlywidget --no-build \
- && jupyter labextension install jupyterlab-plotly --no-build \
- && jupyter lab build
-RUN jupyter nbextension enable --py widgetsnbextension --sys-prefix \
- && jupyter nbextension enable --py callystonb --sys-prefix
-
-RUN mkdir -p /home/$NB_USER/.config/matplotlib \
-  && echo "backend: Agg" >> /home/$NB_USER/.config/matplotlib/matplotlibrc
 
 ENV SHELL /bin/bash
 
