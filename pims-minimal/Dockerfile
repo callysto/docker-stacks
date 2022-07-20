@@ -36,6 +36,7 @@ RUN mamba install --quiet --yes \
   nbval \
   nltk \
   nodejs \
+  openpyxl \
   pandas \
   plotly \
   proj \
